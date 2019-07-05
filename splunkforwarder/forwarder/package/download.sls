@@ -40,7 +40,7 @@ splunkforwarder:
     - require_in:
       - service: splunkforwarder
     - force: True
-  {%- if grains['os_family'] == 'Debian' %}
+  {%- if grains['os_family'] == 'Debian' or ( grains['os_family'] == 'RedHat' and grains['osmajorrelease'] == 7 ) %}
   {# Use sysvinit script or systemd based on the following check #}
   {%- if salt['cmd.retcode']('command -v systemctl 2>&1 /dev/null', python_shell=True) == 1 %}
   file.managed:
@@ -59,6 +59,7 @@ splunkforwarder:
     - require_in:
       - service: splunkforwarder
   {% endif %}
+  {%- if grains['os_family'] == 'Debian' %}
   cmd.watch:
     - cwd: /usr/local/src/
     - name: dpkg -i {{ package_filename }}
@@ -66,6 +67,7 @@ splunkforwarder:
       - cmd: is-splunkforwarder-package-outdated
     - require_in:
       - service: splunkforwarder
+  {% endif %}
   {% elif grains['os'] == 'FreeBSD' %}
   cmd.run:
     - name: |
