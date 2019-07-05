@@ -16,17 +16,16 @@ splunkforwarder:
 {% if custom_version %}
     - version: {{ custom_version }}
 {% endif %}
-  file:
-    - managed
+  file.managed:
     - name: /etc/init.d/splunkforwarder
     - source: salt://splunkforwarder/init.d/splunkforwarder.sh
     - template: jinja
     - mode: 500
-  service:
-    - running
+  service.running:
     - name: splunkforwarder
     - enable: True
     - restart: True
+    - init_delay: 10
     - require:
       - pkg: splunkforwarder
       - file: splunkforwarder
