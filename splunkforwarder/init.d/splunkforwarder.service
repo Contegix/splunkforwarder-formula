@@ -14,7 +14,6 @@ ExecStart=/opt/splunkforwarder/bin/splunk start --accept-license --no-prompt --a
 ExecStop=/opt/splunkforwarder/bin/splunk stop
 ExecReload=/opt/splunkforwarder/bin/splunk restart
 StandardOutput=null
-User=splunk
 
 [Install]
 WantedBy=multi-user.target
