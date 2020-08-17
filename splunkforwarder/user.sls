@@ -8,5 +8,8 @@ splunk_user:
     - home: /opt/splunkforwarder
     - groups:
       - splunk
+      {% for group in salt['pillar.get']('splunkforwarder:user_extra_groups', []).items()|sort -%}
+      - {{ group }}
+      {%- endfor %}
     - require:
       - group: splunk_group
