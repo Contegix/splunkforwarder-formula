@@ -22,6 +22,11 @@ splunkforwarder:
   # It's recommended to disable port 8089 in forwarder
   disable_management_port: True
 
+  # Extra groups the 'splunk' users should also be a member of
+  user_extra_groups:
+    - group1
+    - group2
+
   cert_filename: selfsignedcert.pem
   intermediate: True
   forward_servers:
