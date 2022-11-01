@@ -30,6 +30,7 @@ splunkforwarder-tar-installed:
     - source: {{ splunkforwarder.pkg.tarurl }}
     - user: {{ splunkforwarder.user }}
     - group: {{ splunkforwarder.group }}
+    - if_missing: /opt/splunkforwarder
     - skip_verify: True
     - require:
       - pkg: splunkforwarder-tar-dependency
