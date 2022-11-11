@@ -16,7 +16,7 @@
     - require:
       - user: {{ splunkforwarder.user }}
 
-/opt/splunkforwarder/etc/certs:
+/opt/splunkforwarder/etc/auth:
   file.directory:
     - user: {{ splunkforwarder.user }}
     - group: {{ splunkforwarder.group }}
@@ -27,14 +27,14 @@
 
 {% for filename, config in salt['pillar.get']('splunkforwarder:certs', {}).items() %}
 
-/opt/splunkforwarder/etc/certs/{{ filename }}:
+/opt/splunkforwarder/etc/auth/{{ filename }}:
   file.managed:
     - user: {{ splunkforwarder.user }}
     - group: {{ splunkforwarder.user }}
     - mode: {{ config.get('mode', 400) }}
     - contents_pillar: splunkforwarder:certs:{{ filename }}:content
     - require:
-      - file: /opt/splunkforwarder/etc/certs
+      - file: /opt/splunkforwarder/etc/auth
       - user: {{ splunkforwarder.user }}
 
 {% endfor %}
