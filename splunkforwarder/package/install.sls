@@ -7,7 +7,7 @@
 
 {% if splunkforwarder.pkg['type'] == 'url' %}
 splunkforwarder-rpmurlpackage-install-pkg-installed:
-  pkg.installed:
+  pkg.latest:
     - sources:
       - splunkforwarder: {{ splunkforwarder.pkg.url }}
     - unless:
