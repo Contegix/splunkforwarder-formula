@@ -10,6 +10,8 @@ splunkforwarder-rpmurlpackage-install-pkg-installed:
   pkg.installed:
     - sources:
       - splunkforwarder: {{ splunkforwarder.pkg.url }}
+    - unless:
+      - "/opt/splunkforwarder/bin/splunk --version | grep {{ splunkforwarder.pkg.version }}"
 {% endif %}
 
 {% if splunkforwarder.pkg['type'] == 'pkg' %}
