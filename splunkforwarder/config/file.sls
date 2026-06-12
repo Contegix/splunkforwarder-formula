@@ -57,8 +57,9 @@ splunkforwarder-systemd-permissions:
 splunkforwarder-configure-systemd:
   cmd.run:
     - name: /opt/splunkforwarder/bin/splunk enable boot-start -user {{ splunkforwarder.user }} -systemd-managed 1 --accept-license --answer-yes --no-prompt
-    - onchanges:
-      - pkg: splunkforwarder-rpmurlpackage-install-pkg-installed
+    - onlyif: test -z "$(ls -A /etc/systemd/system/SplunkForwarder.service)"
+    - require:
+      - sls: {{ sls_package_install }}
 {% endif %}
 
 {% if splunkforwarder.adminpass['enabled'] != 'false' %}
