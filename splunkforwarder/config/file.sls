@@ -56,8 +56,7 @@ splunkforwarder-systemd-permissions:
 
 splunkforwarder-accept-license-upgrade:
   cmd.run:
-    - name: /opt/splunkforwarder/bin/splunk start --accept-license --answer-yes --no-prompt && /opt/splunkforwarder/bin/splunk stop
-    - runas: {{ splunkforwarder.user }}
+    - name: /opt/splunkforwarder/bin/splunk start --accept-license --answer-yes --no-prompt || true
     - onchanges:
       - pkg: splunkforwarder-rpmurlpackage-install-pkg-installed
     - require:
