@@ -62,7 +62,7 @@ splunkforwarder-stop-before-upgrade:
 
 splunkforwarder-accept-license-upgrade:
   cmd.run:
-    - name: /opt/splunkforwarder/bin/splunk start --accept-license --answer-yes --no-prompt || true
+    - name: /opt/splunkforwarder/bin/splunk start --accept-license --answer-yes --no-prompt
     - onchanges:
       - pkg: splunkforwarder-rpmurlpackage-install-pkg-installed
     - require:
