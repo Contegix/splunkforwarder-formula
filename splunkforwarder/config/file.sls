@@ -67,11 +67,13 @@ splunkforwarder-accept-license-upgrade:
       - pkg: splunkforwarder-rpmurlpackage-install-pkg-installed
     - require:
       - file: splunkforwarder-systemd-permissions
+      - service: splunkforwarder-stop-before-upgrade
 
 splunkforwarder-configure-systemd:
   cmd.run:
     - name: /opt/splunkforwarder/bin/splunk enable boot-start -user {{ splunkforwarder.user }} -systemd-managed 1 --accept-license --answer-yes --no-prompt
-    - onlyif: test -z "$(ls -A /etc/systemd/system/SplunkForwarder.service)"
+    - onchange:
+      - pkg: splunkforwarder-rpmurlpackage-install-pkg-installed
     - require:
       - sls: {{ sls_package_install }}
 {% endif %}
