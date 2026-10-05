@@ -54,6 +54,12 @@ splunkforwarder-systemd-permissions:
       - user
       - group
 
+splunkforwarder-stop-before-upgrade:
+  service.dead:
+    - name: SplunkForwarder
+    - prereq:
+      - pkg: splunkforwarder-rpmurlpackage-install-pkg-installed
+
 splunkforwarder-accept-license-upgrade:
   cmd.run:
     - name: /opt/splunkforwarder/bin/splunk start --accept-license --answer-yes --no-prompt || true
